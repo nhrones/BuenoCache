@@ -83,7 +83,7 @@ a _new_ set of (100,000 user objects, ~ 7.6 MB in IDB).
    Because all cache _mutations_ are immediately flushed to IndexedDB, the buenoCache remains consistant.      
    Have fun! I learned quite a bit building this.   
    
-   ## Final Note:
+   ## What I've learned:
    The thing that impressed me the most, is how _incredibly fast_ V8-JSON is!    
    I was also impressed with how well _es6-Maps_ work as a database cache.    
    I've tried many different data transfer methods between the ui-thread and the worker.     
