@@ -1,5 +1,5 @@
 
-import * as hunJson from './hundredKJson.json' assert {type: 'json'};
+import * as hunJson from './hundredK.json' assert {type: 'json'};
 
 /**
  * Post a message to the main thread

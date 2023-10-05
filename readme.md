@@ -1,29 +1,29 @@
-# BuenoKv
+# BuenoCache
 
-This BuenoKv example persists a collection of `user-objects` in an indexedDB    
+This BuenoCache example persists a collection of _user-objects_ in an IndexedDB    
 
-It prefers to run from `Hot-Serve` https://github.com/nhrones/Hot    
+It prefers to run from **_Hot-Serve_** https://github.com/nhrones/Hot    
 But, it will also run from any other dev server.    
 
 This app is bundled with esBuild (automatically in HotServe)!
 
-## To run LocalDB:
+## To run this demo:
   * Install a local copy
   * Open it in vscode
   * With HotServe installed:    
-     in the vscode menu, select: `Terminal -> Run Task -> Run HotServe`. 
+     in the vscode menu, select: _Terminal -> Run Task -> Run HotServe_. 
 
-## This POC Demo
+## About this Proof Of Concept demo
 
-All data is persisted/hydrated as a single key/val row in IndexedDB.    
-The IndexedDB is managed by a worker `./dist/idbWorker.js`    
-Data hydrates to an es6-Map using JSON.parse()    
-The Map data is persisted using JSON.stringyfy()    
-Any mutation to data triggers a flush of the full set to IDB.    
-You'll notice a very resposive UI, as all data ops are on workers.    
-I've tested with 5,000,000 records with no UI issues.    
+ - All data is persisted/hydrated as a single key/val row in IndexedDB.    
+ - The IndexedDB is managed by a worker thread. See: _./dist/idbWorker.js_    
+ - Data hydrates to an es6-Map using JSON.parse()    
+ - The Map data is persisted using JSON.stringyfy()    
+ - Any mutation to data triggers a flush of the full set to IDB.    
+ - You'll notice a very resposive UI, as all data ops are on workers.    
+ - I've tested with 5,000,000 records with no UI issues.    
 
-This example app demonstrates full `CRUD` of 100,000 user objects:
+This example app demonstrates full **CRUD** of 100,000 user objects:
 ```js
 /** a `User` object ...*/
 User = {
@@ -33,55 +33,55 @@ User = {
     age: number     // 10 - 70
 } 
 
-/** one hundred thousand `stringyfied` User objects */
-const hundredK = `...`// ~ 6 million chars - 7.6 MB
-
-// Hydrate from IDB-worker
+/**
+ * Hydrate from IDB-worker 
+ * one hundred thousand `stringyfied` User objects
+ * @ param hundredK =~ 6 million chars - 7.6 MB
+ */
 worker.onmessage(hundredK) =>
-const dataMap = new Map([...JSON.parse(hundredK)])
+   buenoCache = new Map([...JSON.parse(hundredK)])
 
 // Persist to IDB-worker
-worker postMessage(id, value = JSON.stringify([...dataMap.entries()]))
+worker postMessage(id, value = JSON.stringify([...buenoCache.entries()]))
 ```
 ## Observed performance
-You can appreciate the performance of this db, by deleting the IDB dataset     
-while the app is running. On the next CRUD op of the in-memory-db, the app     
-will reconstruct the IDB row.  This is imperceptible to the UX.
+You can appreciate the performance of this persisted cache, by deleting the IndexedDB     
+dataset while the app is running.    
+On the next mutation operation of the cache, the app will reconstruct it's IndexedDB row.   
+This is imperceptible to the UX, as this is mostly of-thread.   
     
-If you then again delete the IDB row, and then `refresh the page`, you'll see a     
-`creation` message on restart. It will take < 1 second to create and persist    
-a new set of (100,000 user objects, ~ 7.6 MB in IDB).    
+If you then again delete the IndexedDB row, and then _refresh the page_, you'll see a     
+_creation_ message on restart. It will take < 250ms to create and persist    
+a _new_ set of (100,000 user objects, ~ 7.6 MB in IDB).    
   
-`Note:` Config data-set size in `dbOptions.size` top of `/src/main.ts`.  
-
 ### With the app running:     
    Open dev-tools        
    Open the Application tab    
    Select the storage/indexedDB -> workDB -> ObjectStore    
-   You'll see one or more keys `Users-xxx` (xxx = number of  user objects)    
-   You may then right-click on a `key` and select delete to remove it.    
+   You'll see one or more keys _Users-xxxx_ (xxxx = number of  user objects)    
+   You may then right-click on a _key_ and select delete to remove it.    
    This will not impact the running app.  Any Create, Update, or Delete op,    
    will force a flush of the in-mem db to the IDB record.    
    A flush takes < 100ms for 100k user objects, most of this time in the worker.   
    
    Note: the apps table cells are editable.     
-   Any `cell-blur`, forces a DB flush. Note: the `id` cell is not editable.      
-   When you select a row/cell, an `X` button will show at the botton on the table.    
+   Any _cell-blur_, forces a DB flush. Note: the _id_ cell is not editable.      
+   When you select a row/cell, an **X** button will show at the botton on the table.    
    Click this to delete a row.   
-   You won't see this in real-time, as you'll need to refresh the IDB view in dev-tools.    
-    
+ 
    See the red arrow below.    
         
-   ![escher](./db.png)
+   ![BuenoCache](./buenoCache.png)
    
-   The table headers allow `ordering` and `filtering` on each field.    
-   Note the performance of the Map-based in-mem-db.     
-   Ordering/Filtering is always against the full 100,000 rows.
-       
+   ## About the UI
+   The table headers allow _ordering_ and _filtering_ on each column.    
+   Please note the performance of the es6-Map-based cache.     
+   Ordering and filtering are always applied to the full 100,000 user records.
+   Because all cache _mutations_ are immediately flushed to IDB, buenoCache remains consistant.     
    Have fun! I learned quite a bit building this.   
    
    ## Final Note:
-   The thing that impressed me the most, is how `incredibly fast` JSON is!    
-   I was also impressed with how well `js-Map` works as an in-mem database.    
-   I tried many different data transfer methods between the app and worker,     
-   and was surprised that transfering / persisting a single json string is very efficient.
+   The thing that impressed me the most, is how _incredibly fast_ V8-JSON is!    
+   I was also impressed with how well _es6-Maps_ work as a database cache.    
+   I've tried many different data transfer methods between the ui-thread and the worker.     
+   I was surprised that transfering / persisting a single json string is extremely efficient.
