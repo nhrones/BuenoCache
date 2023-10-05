@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Data Table ORG</title>
+    <link rel="shortcut icon" type="image/x-icon" href="data:image/x-icon;,">
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <table id="table">
+        <thead id="table-head">
+        </thead>
+        <tbody id="table-body">
+
+        </tbody>
+    </table>
+    <h1 id="h1" class="hidden">Creating Data! Please Wait!</h1>
+    <div class="container ">
+        <div id="page-wrapper"></div>
+    </div>
+
+    <!-- <script type="module">
+        import * as myJson from './hundredK.json' assert {type: 'json'};
+        let loadStart = performance.now();
+        const aMap = new Map(myJson.default)
+        globalThis['aMap'] = aMap;
+        console.log(`time to Load 100,000 records - ${(performance.now() - loadStart).toFixed(2)} ms `);
+    </script> -->
+    
+    <script type="module" src="./bundle.js"></script>
+</body>
+
+</html>

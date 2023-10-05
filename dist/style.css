@@ -1,0 +1,106 @@
+.h1 {
+    margin: 2rem;
+    font-family: Arial, Helvetica, sans-serif;
+    display: block;
+}
+
+.hidden { display: none; }
+
+#table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#table td,
+#table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+ 
+#table tr:nth-child(even) {
+    background-color: #f2f2f2;
+} 
+
+#table tr:hover {
+    background-color: #ddd;
+}
+
+.selected_row td{
+    background-color: hsla(106, 80%, 88%, 0.549);
+}
+
+#table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+    user-select: none; 
+}
+
+#table th input {
+    width:50%;
+    font-size: large;
+    font-weight: bold;
+    text-align: left;
+    padding-left: 0.5rem;
+    background-color: LightGoldenrodYellow;
+    color: blue;
+}
+
+.indicator {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.pagebtn {
+    background-color: #04AA6D;
+    /* Green */
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    width: 70px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 1px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.rowbtn {
+    background-color: DarkGreen;
+    border: none;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    margin-right: 10px;
+    margin-top: 10px;
+    width: 110px;
+    cursor: pointer;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+#deletebtn {
+    width: 50px; 
+}
+
+.endbtn {
+    width: 90px;
+}
+
+.editable {
+    color: blue;
+    font-weight: bold;
+    background-color: LightGoldenrodYellow;
+    border: 1px solid #999;
+}
+
+.currentpagebtn {
+    background-color: DarkGreen;
+    border: 1px solid #999;
+}

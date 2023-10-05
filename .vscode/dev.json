@@ -1,0 +1,33 @@
+{
+   "watch": {
+      "Out": "dist",
+      "Entry": [
+         "./src/main.ts"
+      ],
+      "Watch": "./",
+      "Minify": false
+   },
+   "build": {
+      "Out": "dist",
+      "FileName": "idbWorker.js",
+      "Entry": [
+         "./data/idbWorker.ts"
+      ],
+      "Minify": false
+   },
+   "simple": {
+      "TargetFolder": "./dist",
+      "Port": 8080
+   },
+   "hot": {
+      "TargetFolder": "./dist",
+      "Port": 8080,
+      "HotPort": 9099,
+      "BuildTarget": "./dist",
+      "Entry": [
+         "./src/main.ts"
+      ],
+      "Watch": "src",
+      "Minify": false
+   }
+}
