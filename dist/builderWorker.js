@@ -49,6 +49,7 @@ function buildDataSet (size) {
       const loadStart = performance.now();
       //@ts-ignore ? why not default
       const donnerMap = new Map(hunJson.default);
+    
       console.log(`time to Load ${donnerMap.size} json records - ${(performance.now() - loadStart).toFixed(2)} ms `);
 
       const map = new Map();
