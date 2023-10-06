@@ -1,6 +1,6 @@
-# IDB Flow 
+# IndexedDB Flow 
 ## main.ts
-  - export const thisDB = new DB(options) 
+  - export const buenoCache = new BuenoCache(options) 
 
 ## buenoCache.ts
 ctor -> {
