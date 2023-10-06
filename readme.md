@@ -7,11 +7,10 @@ But, it will also run from any other dev server.
 
 This app is bundled with esBuild (automatically in HotServe)!
 
-## To run this demo:
-  * Install a local copy
-  * Open it in vscode
-  * With HotServe installed:    
-     in the vscode menu, select: _Terminal -> Run Task -> Run Hot_. 
+
+## Run this demo:
+https://nhrones.github.io/BuenoCache/
+
 
 ## About this Proof Of Concept demo
 
