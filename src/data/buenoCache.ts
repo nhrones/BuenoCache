@@ -63,7 +63,7 @@ export class BuenoCache {
    constructor(opts: dbOptions) {
       this.IDB_KEY = `${opts.schema.name}-${opts.size}`
       this.schema = opts.schema
-      this.idbWorker = new Worker('./idbWorker.js')
+      this.idbWorker = new Worker('./dist/idbWorker.js')
       this.callbacks = new Map()
       this.columns = this.buildColumnSchema(this.schema.sample)
       this.size = opts.size

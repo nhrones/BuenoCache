@@ -1,10 +1,10 @@
 {
    "simple": {
-      "TargetFolder": "./dist",
+      "TargetFolder": "./",
       "Port": 8080
    },
    "hot": {
-      "TargetFolder": "./dist",
+      "TargetFolder": "./",
       "Port": 8080,
       "HotPort": 9099,
       "BuildTarget": "./dist",

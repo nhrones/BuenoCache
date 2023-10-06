@@ -11,7 +11,7 @@ This app is bundled with esBuild (automatically in HotServe)!
   * Install a local copy
   * Open it in vscode
   * With HotServe installed:    
-     in the vscode menu, select: _Terminal -> Run Task -> Run HotServe_. 
+     in the vscode menu, select: _Terminal -> Run Task -> Run Hot_. 
 
 ## About this Proof Of Concept demo
 
