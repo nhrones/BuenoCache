@@ -1,7 +1,7 @@
 import { filterData } from '../data/filter.ts'
-import { sortData } from  '../data/sort.ts'
+import { orderData } from  '../data/order.ts'
 import { paginateData } from '../data/paginate.ts'
-import { OrderDirection } from '../data/sort.ts'
+import { OrderDirection } from '../data/order.ts'
 import { $, buenoCache } from '../main.ts'
 import { buildDataTable, buildTableHead } from './domDataTable.ts'
 
@@ -44,20 +44,20 @@ export const initDOMelements = () => {
             if (currentOrder == UNORDERED) {
                 resetIndicators()
                 buenoCache.columns[index].order = ASC
-                sortData(colName, ASC)
+                orderData(colName, ASC)
                 if (indicator) indicator.textContent = DOWN
             }
             else if (currentOrder == ASC) {
                 resetIndicators()
                 buenoCache.columns[index].order = DESC
-                sortData(colName, DESC)
+                orderData(colName, DESC)
                 if (indicator) indicator.textContent = UP
             }
             else if (currentOrder == DESC) {
                 if (indicator) indicator.textContent = NOT
                 buenoCache.columns[index].order = UNORDERED
                 resetIndicators()
-                sortData(colName, UNORDERED)
+                orderData(colName, UNORDERED)
                 paginateData()
             }
 

@@ -36,7 +36,7 @@ self.onmessage = function (evt) {
          });
          break;
       default:
-         const errMsg = `Oppps: dbWorker got an unknown proceedure call - "procedure"`;
+         const errMsg = `Oppps: idbWorker got an unknown proceedure call - "procedure"`;
          post(callID, errMsg, null);
          console.error(errMsg);
          break;

@@ -2,20 +2,18 @@
 
 This BuenoCache example persists a collection of _user-objects_ in an IndexedDB    
 
-It prefers to run from **_Hot-Serve_** https://github.com/nhrones/Hot    
-But, it will also run from any other dev server.    
+### Click the link below to run this demo:   
 
-This app is bundled with esBuild (automatically in HotServe)!
-
-
-## Run this demo:
-https://nhrones.github.io/BuenoCache/
+https://nhrones.github.io/BuenoCache/    
+  - This will run the app from Github Pages.    
+  - The app will first build then hydrate an IndexedDB -> workDB -> ObjectStore    
+  - Any mutation of the data will be consistently persisted to this ObjectStore
 
 
 ## About this Proof Of Concept demo
 
  - All data is persisted and hydrated as a single key-value record in IndexedDB.    
- - The IndexedDB is managed by a worker thread. See: _./dist/idbWorker.js_    
+ - The IndexedDB is managed by a worker thread. See: _./worker/idbWorker.js_    
  - Data hydrates to an es6-Map using JSON.parse()    
  - The Map data is persisted using JSON.stringyfy()    
  - Any mutation to buenoCache triggers a flush of the full dataset to IndexedDB.    
@@ -43,6 +41,12 @@ worker.onmessage(hundredK) =>
 // Persist to the IndexedDB worker
 worker postMessage(id, value = JSON.stringify([...buenoCache.entries()]))
 ```
+
+## Note: 
+This app has been bundled with esBuild (automatically in HotServe)!    
+The app prefers to run from **_Hot-Serve_** https://github.com/nhrones/Hot     
+It will also run from any other dev server.    
+
 ## Observed performance
 You can appreciate the performance of this persisted cache, by deleting the IndexedDB     
 dataset while the app is running.    

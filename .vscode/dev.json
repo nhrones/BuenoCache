@@ -4,7 +4,8 @@
       "Port": 8080
    },
    "hot": {
-      "TargetFolder": "./",
+      "TargetFolder": "./dist",
+      "ServeFolder": "./",
       "Port": 8080,
       "HotPort": 9099,
       "BuildTarget": "./dist",

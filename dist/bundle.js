@@ -193,7 +193,7 @@ var sortData = (column, direction) => {
       buenoCache.querySet.sort((a, b) => a[column] < b[column] ? 1 : -1);
       break;
     case OrderDirection.UNORDERED:
-      buenoCache.resetData();
+      buenoCache.querySet.sort((a, b) => a["id"] > b["id"] ? 1 : -1);
       break;
     default:
       break;
@@ -204,9 +204,7 @@ var applyOrder = () => {
   for (const ind of Array.from(indicators)) {
     const index = parseInt(ind?.parentElement?.dataset.index + "");
     const dir = buenoCache.columns[index].order;
-    if (dir != "UNORDERED") {
-      sortData(buenoCache.columns[index].name, dir);
-    }
+    sortData(buenoCache.columns[index].name, dir);
   }
 };
 
@@ -306,7 +304,7 @@ var initDOMelements = () => {
 };
 
 // src/data/objBuilder.ts
-var worker = new Worker("./dist/builderWorker.js", { type: "module" });
+var worker = new Worker("./workers/builderWorker.js", { type: "module" });
 var callbacks = /* @__PURE__ */ new Map();
 var nextMsgID = 0;
 worker.onmessage = (e) => {
@@ -349,7 +347,7 @@ var BuenoCache = class {
     this.window = 10;
     this.IDB_KEY = `${opts.schema.name}-${opts.size}`;
     this.schema = opts.schema;
-    this.idbWorker = new Worker("./dist/idbWorker.js");
+    this.idbWorker = new Worker("./workers/idbWorker.js");
     this.callbacks = /* @__PURE__ */ new Map();
     this.columns = this.buildColumnSchema(this.schema.sample);
     this.size = opts.size;
@@ -376,7 +374,10 @@ var BuenoCache = class {
       }
     });
   }
-  /** extract a set of column-schema from the DB.schema object */
+  // ctor end
+  /**
+   * extract a set of column-schema from the DB.schema object 
+   */
   buildColumnSchema(obj) {
     let columns = [];
     for (const [key, value] of Object.entries(obj)) {

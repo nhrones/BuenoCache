@@ -27,10 +27,10 @@ const LOG = true
  * It uses a promisified `worker-IDB` for persistance.    
  * 
  * The persistance service leverages IndexedDB in a worker. 
- * It wraps the workers messaging in order to support promises.    
+ * We wrap the workers messaging in order to support promises.    
  * 
  * Performance is achieved by persisting and hydrating    
- * the cache (es6-Map-entries) as a single JSON record     
+ * the cache (es6-Map-entries) as a single JSON string     
  * in the IndexedDB.    
  *  
  * Persisting 100,000 objects(10.7 MB) takes ~ 90 ms.    
@@ -63,7 +63,7 @@ export class BuenoCache {
    constructor(opts: dbOptions) {
       this.IDB_KEY = `${opts.schema.name}-${opts.size}`
       this.schema = opts.schema
-      this.idbWorker = new Worker('./dist/idbWorker.js')
+      this.idbWorker = new Worker('./workers/idbWorker.js')
       this.callbacks = new Map()
       this.columns = this.buildColumnSchema(this.schema.sample)
       this.size = opts.size
@@ -82,9 +82,9 @@ export class BuenoCache {
          if (callback) callback(error, result)       // execute
       }
 
-      // try to get data
+      // initial data fetch and hydrate
       this.hydrate().then((result) => {
-         // no data was found 
+         // no data found in IDB
          if (result === null) {
             const h1 = document.getElementById('h1')
             if (h1) {
@@ -98,10 +98,11 @@ export class BuenoCache {
             })
          }
       })
+   }  // ctor end
 
-   }
-
-   /** extract a set of column-schema from the DB.schema object */
+   /**
+    * extract a set of column-schema from the DB.schema object 
+    */
    buildColumnSchema(obj: ObjectLiteral) {
       let columns: column[] = []
       for (const [key, value] of Object.entries(obj)) {
@@ -133,6 +134,7 @@ export class BuenoCache {
       let persistTime = (performance.now() - persistStart).toFixed(2)
       if (LOG) console.log(`Persisting ${map.size} records took ${persistTime} ms `)
    }
+
    /**
     * build Missing Data -> buildTestDataSet -> persist -> RPC-GET
     */

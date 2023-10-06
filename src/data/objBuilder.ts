@@ -2,7 +2,7 @@
 
 import type { callback } from './types.ts'
 
-const worker = new Worker('./dist/builderWorker.js', { type: "module" })
+const worker = new Worker('./workers/builderWorker.js', { type: "module" })
 const callbacks: Map<number, callback> = new Map()
 let nextMsgID = 0
 

@@ -2,7 +2,7 @@
 
 import { buildDataTable } from '../view/domDataTable.ts'
 import {buenoCache } from '../main.ts'
-import { applyOrder} from './sort.ts'
+import { applyOrder} from './order.ts'
 import { paginateData } from './paginate.ts'
 
 
