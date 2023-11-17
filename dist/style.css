@@ -4,6 +4,11 @@
     display: block;
 }
 
+a {
+   background-color: hsla(106, 80%, 88%, 0.549);
+   font-size: x-large;
+}
+
 .hidden { display: none; }
 
 #table {
