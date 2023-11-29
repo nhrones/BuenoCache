@@ -1,6 +1,7 @@
 # BuenoCache
 
 This BuenoCache example persists a collection of _user-objects_ in an IndexedDB    
+  - Note: this cache service with proper transactions in place, will work with almost any persitence service.  I've used localStorage, IndexedDB, SQLite, and DenoKv.  To insure consistent cache, all DB-mutations must be wrapped in a transaction. 
 
 ### Click the link below to run this demo:   
 
