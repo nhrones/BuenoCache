@@ -178,13 +178,13 @@ var buildDataTable = () => {
   makeEditableRow();
 };
 
-// src/data/order.ts
+// src/data/sort.ts
 var OrderDirection = {
   ASC: "ASC",
   DESC: "DESC",
   UNORDERED: "UNORDERED"
 };
-var orderData = (column, direction) => {
+var sortData = (column, direction) => {
   switch (direction) {
     case OrderDirection.ASC:
       buenoCache.querySet.sort((a, b) => a[column] > b[column] ? 1 : -1);
@@ -204,7 +204,7 @@ var applyOrder = () => {
   for (const ind of Array.from(indicators)) {
     const index = parseInt(ind?.parentElement?.dataset.index + "");
     const dir = buenoCache.columns[index].order;
-    orderData(buenoCache.columns[index].name, dir);
+    sortData(buenoCache.columns[index].name, dir);
   }
 };
 
@@ -266,13 +266,13 @@ var initDOMelements = () => {
       if (currentOrder == UNORDERED) {
         resetIndicators();
         buenoCache.columns[index].order = ASC;
-        orderData(colName, ASC);
+        sortData(colName, ASC);
         if (indicator)
           indicator.textContent = DOWN;
       } else if (currentOrder == ASC) {
         resetIndicators();
         buenoCache.columns[index].order = DESC;
-        orderData(colName, DESC);
+        sortData(colName, DESC);
         if (indicator)
           indicator.textContent = UP;
       } else if (currentOrder == DESC) {
@@ -280,7 +280,7 @@ var initDOMelements = () => {
           indicator.textContent = NOT;
         buenoCache.columns[index].order = UNORDERED;
         resetIndicators();
-        orderData(colName, UNORDERED);
+        sortData(colName, UNORDERED);
         paginateData();
       }
       buildDataTable();

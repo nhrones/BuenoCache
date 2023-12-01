@@ -146,11 +146,11 @@ var buildTableHead = () => {
   let th = "";
   for (let i = 0; i < buenoCache.columns.length; i++) {
     th += `    <th id="header${i + 1}" 
-        data-index=${i} value=1> ${capitalizeFirstLetter(buenoCache.columns[i].name)} 
-        <span class="indicator">\u{1F503}</span>
-        <input id="input${i + 1}" type="text">
-    </th>
-    `;
+   data-index=${i} value=1> ${capitalizeFirstLetter(buenoCache.columns[i].name)} 
+   <span class="indicator">\u{1F503}</span>
+   <input id="input${i + 1}" type="text">
+</th>
+`;
   }
   tablehead.innerHTML += tr + th;
   tablehead.innerHTML += `</tr>`;
@@ -178,13 +178,13 @@ var buildDataTable = () => {
   makeEditableRow();
 };
 
-// src/data/sort.ts
+// src/data/order.ts
 var OrderDirection = {
   ASC: "ASC",
   DESC: "DESC",
   UNORDERED: "UNORDERED"
 };
-var sortData = (column, direction) => {
+var orderData = (column, direction) => {
   switch (direction) {
     case OrderDirection.ASC:
       buenoCache.querySet.sort((a, b) => a[column] > b[column] ? 1 : -1);
@@ -204,7 +204,7 @@ var applyOrder = () => {
   for (const ind of Array.from(indicators)) {
     const index = parseInt(ind?.parentElement?.dataset.index + "");
     const dir = buenoCache.columns[index].order;
-    sortData(buenoCache.columns[index].name, dir);
+    orderData(buenoCache.columns[index].name, dir);
   }
 };
 
@@ -266,13 +266,13 @@ var initDOMelements = () => {
       if (currentOrder == UNORDERED) {
         resetIndicators();
         buenoCache.columns[index].order = ASC;
-        sortData(colName, ASC);
+        orderData(colName, ASC);
         if (indicator)
           indicator.textContent = DOWN;
       } else if (currentOrder == ASC) {
         resetIndicators();
         buenoCache.columns[index].order = DESC;
-        sortData(colName, DESC);
+        orderData(colName, DESC);
         if (indicator)
           indicator.textContent = UP;
       } else if (currentOrder == DESC) {
@@ -280,7 +280,7 @@ var initDOMelements = () => {
           indicator.textContent = NOT;
         buenoCache.columns[index].order = UNORDERED;
         resetIndicators();
-        sortData(colName, UNORDERED);
+        orderData(colName, UNORDERED);
         paginateData();
       }
       buildDataTable();

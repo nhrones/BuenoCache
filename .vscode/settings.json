@@ -1,5 +1,4 @@
 {
    "deno.enable": true,
    "deno.disablePaths": ["./dist", "./workers/", "./.vscode"],
-   "editor.maxTokenizationLineLength": 1000
 }

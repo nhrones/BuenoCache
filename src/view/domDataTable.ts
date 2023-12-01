@@ -22,19 +22,12 @@ export const buildTableHead = () => {
 `;
     let th = ''
     for (let i = 0; i < buenoCache.columns.length; i++) {
-   //      th += `    <th id="header${i + 1}" 
-   //      data-index=${i} value=1> ${capitalizeFirstLetter(buenoCache.columns[i].name)} 
-   //      <span class="indicator">🔃</span>
-   //      <img src="./up.svg" width="30" height="30"/>
-   //      <input id="input${i + 1}" type="text">
-   //  </th>
-   //  `
    th += `    <th id="header${i + 1}" 
    data-index=${i} value=1> ${capitalizeFirstLetter(buenoCache.columns[i].name)} 
-   <img src="./up.svg" width="30" height="30"/>
+   <span class="indicator">🔃</span>
    <input id="input${i + 1}" type="text">
 </th>
-`
+`;
     }
     tablehead.innerHTML += (tr + th)
     tablehead.innerHTML += `</tr>`
