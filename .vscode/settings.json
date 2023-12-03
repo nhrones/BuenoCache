@@ -1,4 +1,4 @@
 {
    "deno.enable": true,
-   "deno.disablePaths": ["./dist","./.vscode", "./workers"],
+   "deno.disablePaths": ["./dist","./.vscode", "./data"],
 }

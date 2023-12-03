@@ -127,6 +127,7 @@ export class BuenoCache {
     * This is called for any mutation of the dbMap (set/delete)     
     */
    async persist(map: Map<number, any>): Promise<any> {
+      console.log(`typeof map: ${typeof map}`)
       let valueString = JSON.stringify(Array.from(map.entries()))
       let persistStart = performance.now()
       // transfering a single large string to/from a worker is very performant!
@@ -139,10 +140,12 @@ export class BuenoCache {
     * build Missing Data -> buildTestDataSet -> persist -> RPC-GET
     */
    async buildMissingData() {
-      buildTestDataSet(this.size).then(async (val: any) => {
-         this.persist(val)
-         return await this.postMessage({ procedure: 'GET', key: this.IDB_KEY })
-      })
+      buildTestDataSet(this.size).
+         then(async (val: any) => {
+            console.log(`MissingData value type: ${typeof val}`)
+            //this.persist(val)
+            //return await this.postMessage({ procedure: 'GET', key: this.IDB_KEY })
+         })
    }
 
    /**

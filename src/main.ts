@@ -17,7 +17,7 @@ const options: dbOptions  = {
     schema: {name:'Users', sample:{ id: -1, first: ' ', last: ' ', age: 9 }} as schema,
     size: 100000, // use this to set the size of our test dataset
 }  
- 
+     
 /** 
  * If a dataset of this size already exists in IDB, open it.   
  * Else, create a new dataset of this size and persist it to IDB.   

@@ -304,7 +304,16 @@ var initDOMelements = () => {
 };
 
 // src/data/objBuilder.ts
-var hunJson = await (await fetch(new URL("../DATA/hundredK.json", import.meta.url))).json();
+var callbacks = /* @__PURE__ */ new Map();
+worker.onmessage = (e) => {
+  const { msgID, error, result } = e.data;
+  if (!callbacks.has(msgID))
+    return;
+  const callback = callbacks.get(msgID);
+  callbacks.delete(msgID);
+  if (callback)
+    callback(error, result);
+};
 async function buildTestDataSet(size) {
   return new Promise((resolve, _reject) => {
     const loadStart = performance.now();
@@ -319,7 +328,7 @@ async function buildTestDataSet(size) {
       map.set(index, user);
     }
     console.log(`time to Build ${size} records - ${(performance.now() - showStart).toFixed(2)} ms `);
-    resolve(map);
+    resolve(JSON.stringify([...map.entries()]));
   });
 }
 
@@ -392,7 +401,6 @@ var BuenoCache = class {
    * This is called for any mutation of the dbMap (set/delete)     
    */
   async persist(map) {
-    console.log(`typeof map: ${typeof map}`);
     let valueString = JSON.stringify(Array.from(map.entries()));
     let persistStart = performance.now();
     await this.postMessage({ procedure: "SET", key: this.IDB_KEY, value: valueString });
@@ -405,7 +413,8 @@ var BuenoCache = class {
    */
   async buildMissingData() {
     buildTestDataSet(this.size).then(async (val) => {
-      console.log(`MissingData value type: ${typeof val}`);
+      this.persist(val);
+      return await this.postMessage({ procedure: "GET", key: this.IDB_KEY });
     });
   }
   /**
