@@ -1,5 +1,5 @@
 // deno-lint-ignore-file
-const hunJson = await (await fetch(new URL("../DATA/hundredK.json", import.meta.url))).json()
+const usersJson = await (await fetch(new URL("../data/hundredK.json", import.meta.url))).json()
 
 /**
  * build a dataSet from json data
@@ -10,7 +10,7 @@ export async function buildTestDataSet (size: number) {
    return new Promise((resolve, _reject) => {
       // neasure the construction
       const loadStart = performance.now()
-      const donnerMap:Map<number,any> = new Map(hunJson)
+      const donnerMap:Map<number,any> = new Map(usersJson)
       
       console.log(`time to Load ${donnerMap.size} json records - ${(performance.now() - loadStart).toFixed(2)} ms `);
       console.log(donnerMap.get(0))

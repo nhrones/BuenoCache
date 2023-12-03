@@ -304,11 +304,11 @@ var initDOMelements = () => {
 };
 
 // src/data/objBuilder.ts
-var hunJson = await (await fetch(new URL("../DATA/hundredK.json", import.meta.url))).json();
+var usersJson = await (await fetch(new URL("../data/hundredK.json", import.meta.url))).json();
 async function buildTestDataSet(size) {
   return new Promise((resolve, _reject) => {
     const loadStart = performance.now();
-    const donnerMap = new Map(hunJson);
+    const donnerMap = new Map(usersJson);
     console.log(`time to Load ${donnerMap.size} json records - ${(performance.now() - loadStart).toFixed(2)} ms `);
     console.log(donnerMap.get(0));
     const map = /* @__PURE__ */ new Map();
