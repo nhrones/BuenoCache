@@ -1,6 +1,5 @@
 /// <reference lib="dom" />
-/// <reference lib="deno.unstable" />
-            
+     
 import { dbOptions, schema } from './data/types.ts'
 import { initDOMelements } from './view/domEventHandlers.ts'
 import { BuenoCache } from './data/buenoCache.ts'  
