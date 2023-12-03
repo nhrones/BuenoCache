@@ -1,5 +1,11 @@
+// this works
+import hunJson from './hundredK.json' assert {type: 'json'};
 
-import * as hunJson from './hundredK.json' assert {type: 'json'};
+// this does not work?? no errors -- just no data -- also no console output
+//import hunJson from './hundredK.json' with {type: 'json'};
+
+// this does not work?? no errors -- just no data -- also no console output
+//const hunJson = await (await fetch(new URL("./hundredK.json", import.meta.url))).json()
 
 /**
  * Post a message to the main thread
@@ -48,10 +54,10 @@ function buildDataSet (size) {
       // neasure the construction
       const loadStart = performance.now();
       //@ts-ignore ? why not default
-      const donnerMap = new Map(hunJson.default);
-    
+      const donnerMap = new Map(hunJson);
+      
       console.log(`time to Load ${donnerMap.size} json records - ${(performance.now() - loadStart).toFixed(2)} ms `);
-
+      console.log(donnerMap.get(0))
       const map = new Map();
       const showStart = performance.now();
       for (let index = 0; index < size; index++) {
