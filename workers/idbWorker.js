@@ -24,21 +24,22 @@ self.onmessage = function (evt) {
       case "SET":
          set(key, value).then(() => {
             post(callID, null, "saved - " + key);
-         }).catch((e) => {
+         }).catch((_e) => {
             post(callID, "error saving - " + key, null);
          });
          break;
       case "GET":
          get(key).then((val) => {
             post(callID, null, val);
-         }).catch((e) => {
+         }).catch((_e) => {
             post(callID, "error getting - " + key, null);
          });
          break;
-      default:
+      default: {
          const errMsg = `Oppps: idbWorker got an unknown proceedure call - "procedure"`;
          post(callID, errMsg, null);
          console.error(errMsg);
+      }
          break;
 
    }
@@ -55,7 +56,7 @@ async function createStore(dbName, storeName) {
    const request = indexedDB.open(dbName);
    request.onupgradeneeded = () => request.result.createObjectStore(storeName);
    const db = await promisifyRequest(request);
-   return async (txMode, callback) => {
+   return (txMode, callback) => {
       return callback(db.transaction(storeName, txMode).objectStore(storeName));
    };
 }

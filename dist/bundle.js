@@ -1,14 +1,16 @@
 // deno-lint-ignore-file
+var __defProp = Object.defineProperty;
+var __name = (target, value) => __defProp(target, "name", { value, configurable: true });
 
 // src/view/editableTR.ts
 var focusedRow;
 var focusedCell;
 var selectedRowID = 0;
-var resetFocusedRow = () => {
+var resetFocusedRow = /* @__PURE__ */ __name(() => {
   const dbtn = $("deletebtn");
   dbtn?.setAttribute("hidden", "");
   focusedRow = null;
-};
+}, "resetFocusedRow");
 function makeEditableRow() {
   const rows = document.querySelectorAll("tr");
   for (const row of Array.from(rows)) {
@@ -49,6 +51,7 @@ function makeEditableRow() {
     };
   }
 }
+__name(makeEditableRow, "makeEditableRow");
 
 // src/data/paginate.ts
 function paginateData() {
@@ -63,6 +66,7 @@ function paginateData() {
     return { "querySet": null, "totalPages": 0 };
   }
 }
+__name(paginateData, "paginateData");
 
 // src/view/domPageButtons.ts
 var wrapper;
@@ -132,13 +136,15 @@ function buildPageButtons(pages) {
     });
   }
 }
+__name(buildPageButtons, "buildPageButtons");
 
 // src/view/domDataTable.ts
 var tableBody;
 function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
-var buildTableHead = () => {
+__name(capitalizeFirstLetter, "capitalizeFirstLetter");
+var buildTableHead = /* @__PURE__ */ __name(() => {
   const tablehead = $("table-head");
   const tr = `
 <tr class="headerRow">
@@ -154,8 +160,8 @@ var buildTableHead = () => {
   }
   tablehead.innerHTML += tr + th;
   tablehead.innerHTML += `</tr>`;
-};
-var buildDataTable = () => {
+}, "buildTableHead");
+var buildDataTable = /* @__PURE__ */ __name(() => {
   if (!tableBody)
     tableBody = $("table-body");
   const { querySet, totalPages } = paginateData();
@@ -176,7 +182,7 @@ var buildDataTable = () => {
   resetFocusedRow();
   buildPageButtons(totalPages);
   makeEditableRow();
-};
+}, "buildDataTable");
 
 // src/data/order.ts
 var OrderDirection = {
@@ -184,7 +190,7 @@ var OrderDirection = {
   DESC: "DESC",
   UNORDERED: "UNORDERED"
 };
-var orderData = (column, direction) => {
+var orderData = /* @__PURE__ */ __name((column, direction) => {
   switch (direction) {
     case OrderDirection.ASC:
       buenoCache.querySet.sort((a, b) => a[column] > b[column] ? 1 : -1);
@@ -198,18 +204,18 @@ var orderData = (column, direction) => {
     default:
       break;
   }
-};
-var applyOrder = () => {
+}, "orderData");
+var applyOrder = /* @__PURE__ */ __name(() => {
   const indicators = document.querySelectorAll(".indicator");
   for (const ind of Array.from(indicators)) {
     const index = parseInt(ind?.parentElement?.dataset.index + "");
     const dir = buenoCache.columns[index].order;
     orderData(buenoCache.columns[index].name, dir);
   }
-};
+}, "applyOrder");
 
 // src/data/filter.ts
-var filterData = (columnName, value) => {
+var filterData = /* @__PURE__ */ __name((columnName, value) => {
   buenoCache.resetData();
   if (value.length === 0) {
     applyOrder();
@@ -234,21 +240,21 @@ var filterData = (columnName, value) => {
     paginateData();
     buildDataTable();
   }
-};
+}, "filterData");
 
 // src/view/domEventHandlers.ts
 var UP = "\u{1F53C}";
 var DOWN = "\u{1F53D}";
 var NOT = "\u{1F503}";
-var resetIndicators = () => {
+var resetIndicators = /* @__PURE__ */ __name(() => {
   const indicators = document.querySelectorAll(".indicator");
   for (const ind of Array.from(indicators)) {
     const index = parseInt(ind.parentElement.dataset.index);
     buenoCache.columns[index].order = OrderDirection.UNORDERED;
     ind.textContent = NOT;
   }
-};
-var initDOMelements = () => {
+}, "resetIndicators");
+var initDOMelements = /* @__PURE__ */ __name(() => {
   buildTableHead();
   let focusedInput;
   for (let i = 0; i < buenoCache.columns.length; i++) {
@@ -301,7 +307,7 @@ var initDOMelements = () => {
       }
     };
   }
-};
+}, "initDOMelements");
 
 // src/data/objBuilder.ts
 var usersJson = await (await fetch(new URL("../data/hundredK.json", import.meta.url))).json();
@@ -322,6 +328,7 @@ async function buildTestDataSet(size) {
     resolve(map);
   });
 }
+__name(buildTestDataSet, "buildTestDataSet");
 
 // src/data/buenoCache.ts
 var LOG = true;
@@ -533,9 +540,10 @@ var BuenoCache = class {
     });
   }
 };
+__name(BuenoCache, "BuenoCache");
 
 // src/main.ts
-var $ = (id) => document.getElementById(id);
+var $ = /* @__PURE__ */ __name((id) => document.getElementById(id), "$");
 var options = {
   schema: { name: "Users", sample: { id: -1, first: " ", last: " ", age: 9 } },
   size: 1e5

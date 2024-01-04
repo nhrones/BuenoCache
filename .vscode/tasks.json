@@ -6,6 +6,12 @@
          "type": "shell",
          "command": "hot",
          "problemMatcher": []
+      },      
+      {
+         "label": "BUILD",
+         "type": "shell",
+         "command": "build",
+         "problemMatcher": []
       },
       {
          "label": "RUN",

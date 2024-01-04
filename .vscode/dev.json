@@ -14,5 +14,13 @@
       ],
       "Watch": "src",
       "Minify": false
+   },
+   "build": {
+      "Out": "dist",
+      "FileName": "bundle.js",
+      "Entry": [
+         "./src/main.ts"
+      ],
+      "Minify": false
    }
 }

@@ -3,7 +3,7 @@
 import { dbOptions, schema } from './data/types.ts'
 import { initDOMelements } from './view/domEventHandlers.ts'
 import { BuenoCache } from './data/buenoCache.ts'  
- 
+  
 export const $ = (id: string) => document.getElementById(id)
   
 /** 
